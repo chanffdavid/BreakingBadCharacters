@@ -1,5 +1,5 @@
 import Foundation
-struct Character : Identifiable, Codable {
+struct Character : Identifiable, Codable, Hashable {
     internal let id = UUID()
     var char_id: Int
     var name: String
