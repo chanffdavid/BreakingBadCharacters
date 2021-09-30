@@ -10,8 +10,9 @@ import SwiftUI
 @main
 struct BreakingBadCharactersApp: App {
     var body: some Scene {
+        let selections = SessionSelection()
         WindowGroup {
-            ContentView()
+            ContentView(sessionSelection: selections)
         }
     }
 }

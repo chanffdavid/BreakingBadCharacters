@@ -3,7 +3,7 @@ import Alamofire
 
 // MARK: Network Manager
 enum services :String{
-    case characters
+    case characters //For this test only using this service
     case episodes
     case quotes
     case deaths
@@ -60,5 +60,60 @@ class BreakingBadApi {
 class Connectivity {
     class func isConnectedToInternet() ->Bool {
         return NetworkReachabilityManager()!.isReachable
+    }
+}
+
+// MARK: Observer
+class BreakingBadApiObserver: ObservableObject {
+    @Published var datas = [Character]()
+    public var allsessions : [Character]{
+        get{
+            return datas
+        }
+    }
+    
+    func sessionSelected(_ sessions : [Session]) -> [Character]
+    {
+        var characterInSession = Set<Character>()
+        
+        sessions.forEach{ session in
+            datas.forEach{ character in
+                
+                if (character.appearance.contains(session.rawValue))
+                {
+                    characterInSession.insert(character)
+                }
+                
+            }
+        }
+        
+        print(sessions)
+        return Array(characterInSession)
+    }
+  
+    
+    init() {
+        
+        if !Connectivity.isConnectedToInternet() {
+               print("internet is not available.")
+               // do some tasks..
+            return;
+        }
+        
+        // MARK: Network Call
+        //-----------------GET Call----------------------
+        //pass model to the network call - get call
+        BreakingBadApi(data: [:], service: .characters, method: .get, isJSONRequest: false).executeQuery(){
+
+                  (result: Result<[Character],Error>) in
+                  switch result{
+                  case .success(let response):
+                      print(response)
+                      self.datas = response
+                  case .failure(let error):
+                      print(error)
+                    
+            }
+        }
     }
 }

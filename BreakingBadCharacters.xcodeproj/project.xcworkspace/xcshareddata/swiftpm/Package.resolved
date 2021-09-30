@@ -2,12 +2,30 @@
   "object": {
     "pins": [
       {
+        "package": "AFFilterList",
+        "repositoryURL": "https://github.com/NigelGee/AFFilterList",
+        "state": {
+          "branch": null,
+          "revision": "56ac56ad0b019a985bac6cbe4295d21ee4b4ebeb",
+          "version": "1.1.5"
+        }
+      },
+      {
         "package": "Alamofire",
         "repositoryURL": "https://github.com/Alamofire/Alamofire",
         "state": {
           "branch": "master",
           "revision": "92a897577be727a9dd2a5171b65f6cf4758a164f",
           "version": null
+        }
+      },
+      {
+        "package": "CheckBox",
+        "repositoryURL": "https://github.com/zhouhao27/CheckBox",
+        "state": {
+          "branch": null,
+          "revision": "a6bfb275f37ccc3e371cff7d38ec81c61df70f8b",
+          "version": "1.0.8"
         }
       },
       {

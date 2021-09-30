@@ -63,7 +63,7 @@ public struct FilterList<Element: Identifiable, RowContent: View>: View {
     }
 
     /// Private function to apply the string filter to list
-    private func applyFilter() {
+    public func applyFilter() {
         let cleanedFilter = filterString.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if cleanedFilter.isEmpty {

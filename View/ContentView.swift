@@ -6,56 +6,50 @@
 //
 
 import SwiftUI
-
+import AFFilterList
 
 struct ContentView: View {
-    @ObservedObject var obs = Observer()
+    @ObservedObject var obs = BreakingBadApiObserver()
+    @ObservedObject var sessionSelection:SessionSelection
+    
+    @State private var showingPopover = false
+   
+    
     
     var body: some View {
+        
         NavigationView {
-            FilterList(obs.datas, filterKeys:\.name) { i in
-                NavigationLink(destination: CharacterDetail(character: i)) {
-                    CharacterRow(name: i.name, url: i.img)
+            if obs.datas.count > 0
+            {   FilterList(obs.sessionSelected(sessionSelection.selections), filterKeys:\.name) { character in
+                NavigationLink(destination: CharacterDetail(character: character)) {
+                    CharacterRow(name: character.name, url: character.img)
                 }
-                
                    }
-                   .navigationBarTitle("Breaking Bad")
+                   .navigationBarItems(leading:
+                                       //This is your made up title, put in the leading view so it is up top aligned with the plus button
+                                       Text("Breaking Bad").font(.largeTitle).bold()
+                                       //This is the plus button, on the right side, aka trailing view
+                                       , trailing: Button(action: {
+                                            showingPopover = true
+                                       }, label: {
+                                               Image(systemName: "plus.circle")
+                                       }))
+                
+            }
+
                }
+        .popover(isPresented: $showingPopover) {
+            SessionSelectionList(selections: $sessionSelection.selections)
+        }
+        
     }
 }
 
 struct ContentView_Previews: PreviewProvider {
+    static var selections = SessionSelection()
     static var previews: some View {
-        ContentView()
+        ContentView(sessionSelection: selections)
     }
 }
 
-// MARK: Observer
-class Observer: ObservableObject {
-    @Published var datas = [Character]()
-    
-    init() {
-        
-        if !Connectivity.isConnectedToInternet() {
-               print("internet is not available.")
-               // do some tasks..
-            return;
-        }
-        
-        // MARK: Network Call
-        //-----------------GET Call----------------------
-        //pass model to the network call - get call
-        BreakingBadApi(data: [:], service: .characters, method: .get, isJSONRequest: false).executeQuery(){
 
-                  (result: Result<[Character],Error>) in
-                  switch result{
-                  case .success(let response):
-                      print(response)
-                      self.datas = response
-                  case .failure(let error):
-                      print(error)
-                    
-            }
-        }
-    }
-}

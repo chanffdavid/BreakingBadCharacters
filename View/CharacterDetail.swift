@@ -12,10 +12,7 @@ struct CharacterDetail: View {
     var character: Character
 
     var body: some View {
-       
-
-
-
+      
             VStack(alignment: .leading) {
                 AnimatedImage(url: URL(string: character.img)!)
                     .resizable()
