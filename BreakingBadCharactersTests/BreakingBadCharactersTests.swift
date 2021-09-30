@@ -18,6 +18,26 @@ class BreakingBadCharactersTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
+    func testBreakingBadCharacters() {
+        let e = expectation(description: "BreakingBadCharactersApi")
+        
+        let apiServer = BreakingBadApi(data: [:], service: .characters, method: .get, isJSONRequest: false).executeQuery {
+        
+            (result: Result<[Character],Error>) in
+            switch result{
+            case .success(let response):
+                e.fulfill()
+                print(response)
+            case .failure(let error):
+                XCTAssertNil(error, "Whoops, error \(error)")
+                print(error)
+              }
+            
+        }
+        waitForExpectations(timeout: 5.0, handler: nil)
+  }
+     
+    
     func testExample() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
