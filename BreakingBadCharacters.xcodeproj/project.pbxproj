@@ -21,9 +21,8 @@
 		1A80298B2705B45B0078B794 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A80298A2705B45B0078B794 /* Character.swift */; };
 		1A80299E2705F2280078B794 /* CharacterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A80299D2705F2280078B794 /* CharacterRow.swift */; };
 		1A8029A12705F31C0078B794 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 1A8029A02705F31C0078B794 /* SDWebImageSwiftUI */; };
-		1ADB8F7127064C8000CB5144 /* AFFilterList in Frameworks */ = {isa = PBXBuildFile; productRef = 1ADB8F7027064C8000CB5144 /* AFFilterList */; };
-		1ADB8F7427065B4800CB5144 /* CheckBox in Frameworks */ = {isa = PBXBuildFile; productRef = 1ADB8F7327065B4800CB5144 /* CheckBox */; };
 		1ADB8F762706610300CB5144 /* SessionSelectionList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB8F752706610300CB5144 /* SessionSelectionList.swift */; };
+		1ADB8F7C270683F700CB5144 /* FilterList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ADB8F7B270683F700CB5144 /* FilterList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +58,7 @@
 		1A80298A2705B45B0078B794 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		1A80299D2705F2280078B794 /* CharacterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CharacterRow.swift; sourceTree = "<group>"; };
 		1ADB8F752706610300CB5144 /* SessionSelectionList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionSelectionList.swift; sourceTree = "<group>"; };
+		1ADB8F7B270683F700CB5144 /* FilterList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FilterList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,9 +67,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1A8029A12705F31C0078B794 /* SDWebImageSwiftUI in Frameworks */,
-				1ADB8F7127064C8000CB5144 /* AFFilterList in Frameworks */,
 				1A8029852705AA440078B794 /* SwiftyJSON in Frameworks */,
-				1ADB8F7427065B4800CB5144 /* CheckBox in Frameworks */,
 				1A8029822705AA130078B794 /* Alamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -172,6 +170,7 @@
 				1A80299D2705F2280078B794 /* CharacterRow.swift */,
 				1A6BBEBD2705FD43006E357F /* CharacterDetail.swift */,
 				1ADB8F752706610300CB5144 /* SessionSelectionList.swift */,
+				1ADB8F7B270683F700CB5144 /* FilterList.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -196,8 +195,6 @@
 				1A8029812705AA130078B794 /* Alamofire */,
 				1A8029842705AA440078B794 /* SwiftyJSON */,
 				1A8029A02705F31C0078B794 /* SDWebImageSwiftUI */,
-				1ADB8F7027064C8000CB5144 /* AFFilterList */,
-				1ADB8F7327065B4800CB5144 /* CheckBox */,
 			);
 			productName = BreakingBadCharacters;
 			productReference = 1A8029532705A9BC0078B794 /* BreakingBadCharacters.app */;
@@ -275,8 +272,6 @@
 				1A8029802705AA130078B794 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				1A8029832705AA440078B794 /* XCRemoteSwiftPackageReference "SwiftyJSON" */,
 				1A80299F2705F31C0078B794 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
-				1ADB8F6F27064C8000CB5144 /* XCRemoteSwiftPackageReference "AFFilterList" */,
-				1ADB8F7227065B4800CB5144 /* XCRemoteSwiftPackageReference "CheckBox" */,
 			);
 			productRefGroup = 1A8029542705A9BC0078B794 /* Products */;
 			projectDirPath = "";
@@ -325,6 +320,7 @@
 				1ADB8F762706610300CB5144 /* SessionSelectionList.swift in Sources */,
 				1A6BBEBE2705FD43006E357F /* CharacterDetail.swift in Sources */,
 				1A8029572705A9BC0078B794 /* BreakingBadCharactersApp.swift in Sources */,
+				1ADB8F7C270683F700CB5144 /* FilterList.swift in Sources */,
 				1A80299E2705F2280078B794 /* CharacterRow.swift in Sources */,
 				1A80298B2705B45B0078B794 /* Character.swift in Sources */,
 			);
@@ -701,22 +697,6 @@
 				version = 2.0.2;
 			};
 		};
-		1ADB8F6F27064C8000CB5144 /* XCRemoteSwiftPackageReference "AFFilterList" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/NigelGee/AFFilterList";
-			requirement = {
-				kind = exactVersion;
-				version = 1.1.5;
-			};
-		};
-		1ADB8F7227065B4800CB5144 /* XCRemoteSwiftPackageReference "CheckBox" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/zhouhao27/CheckBox";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -734,16 +714,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1A80299F2705F31C0078B794 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
-		};
-		1ADB8F7027064C8000CB5144 /* AFFilterList */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1ADB8F6F27064C8000CB5144 /* XCRemoteSwiftPackageReference "AFFilterList" */;
-			productName = AFFilterList;
-		};
-		1ADB8F7327065B4800CB5144 /* CheckBox */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 1ADB8F7227065B4800CB5144 /* XCRemoteSwiftPackageReference "CheckBox" */;
-			productName = CheckBox;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

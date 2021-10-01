@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import AFFilterList
 
 struct ContentView: View {
     @ObservedObject var obs = BreakingBadApiObserver()

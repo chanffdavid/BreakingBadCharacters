@@ -87,8 +87,8 @@ class BreakingBadApiObserver: ObservableObject {
             }
         }
         
-        print(sessions)
-        return Array(characterInSession)
+        print("BreakingBadApiObserver characterInSession.count \(characterInSession.count)")
+        return (Array(characterInSession) as [Character]).sorted(by:{$0.char_id < $1.char_id} )
     }
   
     
@@ -108,7 +108,7 @@ class BreakingBadApiObserver: ObservableObject {
                   (result: Result<[Character],Error>) in
                   switch result{
                   case .success(let response):
-                      print(response)
+//                      print(response)
                       self.datas = response
                   case .failure(let error):
                       print(error)
