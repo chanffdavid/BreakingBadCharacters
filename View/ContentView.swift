@@ -19,9 +19,8 @@ struct ContentView: View {
     var body: some View {
         
         NavigationView {
-            if obs.datas.count > 0
-            {
-                FilterList(ListItems(obs.sessionSelected(sessionSelection.selections)), filterKeys:\.name) { character in
+
+                FilterList(FilterListManager(obs.sessionSelected(sessionSelection.selections)), filterKeys:\.name) { character in
                 NavigationLink(destination: CharacterDetail(character: character)) {
                     CharacterRow(name: character.name, url: character.img)
                 }
@@ -36,7 +35,7 @@ struct ContentView: View {
                                                Image(systemName: "gear.circle")
                                        }))
                 
-            }
+            
 
                }
         .popover(isPresented: $showingPopover) {

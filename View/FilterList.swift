@@ -9,9 +9,7 @@ import SwiftUI
 
 /// A List that filter the data on a give key(s)
 public struct FilterList<Element: Identifiable, RowContent: View>: View {
-    @State private var filteredItems = [Element]()
-    @State private var filterString = ""
-    @ObservedObject var listItems:ListItems<Element>
+    @ObservedObject var listItems:FilterListManager<Element>
     
     let filterKeyPaths: [KeyPath<Element, String>]
     let text: LocalizedStringKey
@@ -27,7 +25,7 @@ public struct FilterList<Element: Identifiable, RowContent: View>: View {
     ///   - systemImage: Optional String for SF Symbol. Default is "magnifyingglass". Insert nil for text only.
     ///   - imageColor: Color for the image. Default is .secondary.
     ///   - rowContent: A view builder that creates the view for a single row of the list.
-    public init(_ data :ListItems<Element>,
+    public init(_ data :FilterListManager<Element>,
          filterKeys: KeyPath<Element, String>...,
          placeholder: LocalizedStringKey = "Search",
          systemImage: String? = "magnifyingglass",
@@ -51,7 +49,7 @@ public struct FilterList<Element: Identifiable, RowContent: View>: View {
                     Image(systemName: image)
                         .foregroundColor(color)
                 }
-                TextField(text, text: $filterString.ifChange(applyFilter))
+                TextField(text, text: $listItems.filterString.ifChange(applyFilter))
             }
             .padding(5)
             .background(Color.secondary.opacity(0.2))
@@ -61,26 +59,28 @@ public struct FilterList<Element: Identifiable, RowContent: View>: View {
             
             List(listItems.filteredItems, rowContent: content).onAppear(perform: applyFilter)
 
+
         }
     }
 
     /// Private function to apply the string filter to list
     private func applyFilter()
     {
-        listItems.applyFilter(filterString: filterString, filterKeyPaths: filterKeyPaths)
+        listItems.applyFilter(filterString: listItems.filterString, filterKeyPaths: filterKeyPaths)
     }
 
 }
 
-public class ListItems <Element: Identifiable> : ObservableObject {
+public class FilterListManager <Element: Identifiable> : ObservableObject {
     
     @Published var listItems: [Element]
-    @Published var filteredItems: [Element]=[Element]()
+    @Published var filteredItems: [Element]
+    @Published var filterString: String
     
     public init(_ data:[Element]){
         listItems = data
-        filteredItems = listItems
-        
+        filteredItems = data
+        filterString = ""
     }
     
     public func applyFilter(filterString:String, filterKeyPaths: [KeyPath<Element, String>]) {
