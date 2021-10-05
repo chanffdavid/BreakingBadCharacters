@@ -11,6 +11,7 @@ struct ContentView: View {
     @ObservedObject var obs = BreakingBadApiObserver()
     @ObservedObject var sessionSelection:SessionSelection
     
+    
     @State private var showingPopover = false
    
     
@@ -19,7 +20,8 @@ struct ContentView: View {
         
         NavigationView {
             if obs.datas.count > 0
-            {   FilterList(obs.sessionSelected(sessionSelection.selections), filterKeys:\.name) { character in
+            {
+                FilterList(ListItems(obs.sessionSelected(sessionSelection.selections)), filterKeys:\.name) { character in
                 NavigationLink(destination: CharacterDetail(character: character)) {
                     CharacterRow(name: character.name, url: character.img)
                 }
@@ -31,7 +33,7 @@ struct ContentView: View {
                                        , trailing: Button(action: {
                                             showingPopover = true
                                        }, label: {
-                                               Image(systemName: "plus.circle")
+                                               Image(systemName: "gear.circle")
                                        }))
                 
             }
@@ -41,8 +43,10 @@ struct ContentView: View {
             SessionSelectionList(selections: $sessionSelection.selections)
         }
         
+        
     }
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var selections = SessionSelection()

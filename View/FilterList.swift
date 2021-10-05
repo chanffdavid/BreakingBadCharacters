@@ -11,8 +11,8 @@ import SwiftUI
 public struct FilterList<Element: Identifiable, RowContent: View>: View {
     @State private var filteredItems = [Element]()
     @State private var filterString = ""
-
-    let listItems: [Element]
+    @ObservedObject var listItems:ListItems<Element>
+    
     let filterKeyPaths: [KeyPath<Element, String>]
     let text: LocalizedStringKey
     let image: String?
@@ -27,7 +27,7 @@ public struct FilterList<Element: Identifiable, RowContent: View>: View {
     ///   - systemImage: Optional String for SF Symbol. Default is "magnifyingglass". Insert nil for text only.
     ///   - imageColor: Color for the image. Default is .secondary.
     ///   - rowContent: A view builder that creates the view for a single row of the list.
-    public init(_ data: [Element],
+    public init(_ data :ListItems<Element>,
          filterKeys: KeyPath<Element, String>...,
          placeholder: LocalizedStringKey = "Search",
          systemImage: String? = "magnifyingglass",
@@ -40,6 +40,7 @@ public struct FilterList<Element: Identifiable, RowContent: View>: View {
         image = systemImage
         color = imageColor
         content = rowContent
+
     }
 
     public var body: some View {
@@ -57,13 +58,32 @@ public struct FilterList<Element: Identifiable, RowContent: View>: View {
             .cornerRadius(10)
             .padding(.horizontal)
 
-            List(filteredItems, rowContent: content)
-                .onAppear(perform: applyFilter)
+            
+            List(listItems.filteredItems, rowContent: content).onAppear(perform: applyFilter)
+
         }
     }
 
     /// Private function to apply the string filter to list
-    public func applyFilter() {
+    private func applyFilter()
+    {
+        listItems.applyFilter(filterString: filterString, filterKeyPaths: filterKeyPaths)
+    }
+
+}
+
+public class ListItems <Element: Identifiable> : ObservableObject {
+    
+    @Published var listItems: [Element]
+    @Published var filteredItems: [Element]=[Element]()
+    
+    public init(_ data:[Element]){
+        listItems = data
+        filteredItems = listItems
+        
+    }
+    
+    public func applyFilter(filterString:String, filterKeyPaths: [KeyPath<Element, String>]) {
         let cleanedFilter = filterString.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if cleanedFilter.isEmpty {
@@ -77,8 +97,8 @@ public struct FilterList<Element: Identifiable, RowContent: View>: View {
             }
         }
     }
+    
 }
-
 /// Extension on Binding to update the filter to applyFilter
 fileprivate extension Binding {
     func ifChange(_ handler: @escaping () -> Void) -> Binding<Value> {
